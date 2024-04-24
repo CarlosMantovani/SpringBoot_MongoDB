@@ -2,6 +2,7 @@ package com.example.springmongodb.resources;
 
 
 
+import com.example.springmongodb.domain.Post;
 import com.example.springmongodb.domain.User;
 import com.example.springmongodb.dto.UserDTO;
 import com.example.springmongodb.services.UserService;
@@ -53,5 +54,10 @@ public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
         obj = service.update(obj);
 
         return ResponseEntity.noContent().build();
+    }
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
